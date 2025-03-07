@@ -47,20 +47,21 @@
             
             let ibw;
             if (gender === "M") {
-                ibw = height >= 152 ? 50 + 0.9 * (height - 152) : 50;
+                ibw = height >= 152.4 ? 50 + 0.91 * (height - 152.4) : 50;
             } else {
-                ibw = height >= 152 ? 45.5 + 0.9 * (height - 152) : 45.5;
+                ibw = height >= 152.4 ? 45.5 + 0.91 * (height - 152.4) : 45.5;
             }
+            
+            ibw = Math.ceil(ibw); // Round up to the nearest whole number
             
             let ibw120 = ibw * 1.2;
             let adw = ibw + 0.4 * (weight - ibw);
             let recommendedWeight = weight > ibw120 ? adw : weight;
             let weightType = weight > ibw120 ? "IDEAL BODY WEIGHT" : "ACTUAL BODY WEIGHT";
             
-            document.getElementById("ibw").innerText = `Ideal Body Weight (IBW): ${ibw.toFixed(2)} kg`;
+            document.getElementById("ibw").innerText = `Ideal Body Weight (IBW): ${ibw} kg`;
             document.getElementById("weightType").innerText = `Weight Type Used: ${weightType}`;
         }
     </script>
 </body>
 </html>
-
