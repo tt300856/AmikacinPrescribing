@@ -45,7 +45,13 @@
                 return;
             }
             
-            let ibw = gender === "M" ? 50 + 0.9 * (height - 152) : 45.5 + 0.9 * (height - 152);
+            let ibw;
+            if (gender === "M") {
+                ibw = height >= 152 ? 50 + 0.9 * (height - 152) : 50;
+            } else {
+                ibw = height >= 152 ? 45.5 + 0.9 * (height - 152) : 45.5;
+            }
+            
             let ibw120 = ibw * 1.2;
             let adw = ibw + 0.4 * (weight - ibw);
             let recommendedWeight = weight > ibw120 ? adw : weight;
@@ -57,3 +63,4 @@
     </script>
 </body>
 </html>
+
