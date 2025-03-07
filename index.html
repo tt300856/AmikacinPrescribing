@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amikacin Dosing Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        input, button { width: 100%; padding: 10px; margin-top: 10px; }
+        .disclaimer { font-size: 12px; color: red; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Amikacin Dosing Calculator</h2>
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" placeholder="Enter height in cm">
+        
+        <label for="weight">Actual Weight (kg):</label>
+        <input type="number" id="weight" placeholder="Enter actual weight in kg">
+        
+        <label for="gender">Gender (M/F):</label>
+        <select id="gender">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+        
+        <button onclick="calculateDosing()">Calculate</button>
+        
+        <h3 id="ibw"></h3>
+        <h3 id="weightType"></h3>
+        
+        <p class="disclaimer">Disclaimer: The results provided by these tools are for informational purposes only. We do not take responsibility for the accuracy of these results. Always verify the information and consult a professional when needed. The user is solely responsible.</p>
+    </div>
+
+    <script>
+        function calculateDosing() {
+            let height = parseFloat(document.getElementById("height").value);
+            let weight = parseFloat(document.getElementById("weight").value);
+            let gender = document.getElementById("gender").value;
+
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                alert("Please enter valid values.");
+                return;
+            }
+            
+            let ibw = gender === "M" ? 50 + 0.9 * (height - 152) : 45.5 + 0.9 * (height - 152);
+            let ibw120 = ibw * 1.2;
+            let adw = ibw + 0.4 * (weight - ibw);
+            let recommendedWeight = weight > ibw120 ? adw : weight;
+            let weightType = weight > ibw120 ? "IDEAL BODY WEIGHT" : "ACTUAL BODY WEIGHT";
+            
+            document.getElementById("ibw").innerText = `Ideal Body Weight (IBW): ${ibw.toFixed(2)} kg`;
+            document.getElementById("weightType").innerText = `Weight Type Used: ${weightType}`;
+        }
+    </script>
+</body>
+</html>
