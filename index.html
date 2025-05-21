@@ -57,7 +57,7 @@
             let ibw120 = ibw * 1.2;
             let adw = ibw + 0.4 * (weight - ibw);
             let recommendedWeight = weight > ibw120 ? adw : weight;
-            let weightType = weight > ibw120 ? "IDEAL BODY WEIGHT" : "ACTUAL BODY WEIGHT";
+            let weightType = weight > ibw120 ? "CORRECTED BODY WEIGHT" : "ACTUAL BODY WEIGHT";
             
             document.getElementById("ibw").innerText = `Ideal Body Weight (IBW): ${ibw} kg`;
             document.getElementById("weightType").innerText = `Weight Type Used: ${weightType}`;
