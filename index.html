@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Amikacin Dosing Calculator</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
         .container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-        input, button { width: 100%; padding: 10px; margin-top: 10px; }
+        input, button, select { width: 100%; padding: 10px; margin-top: 10px; }
         .disclaimer { font-size: 12px; color: red; margin-top: 20px; }
+        .info-text { font-size: 14px; color: #555; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Amikacin Dosing Calculator</h2>
         <label for="height">Height (cm):</label>
-        <input type="number" id="height" placeholder="Enter height in cm">
+        <input type="number" id="height" placeholder="Enter height in cm" />
         
         <label for="weight">Actual Weight (kg):</label>
-        <input type="number" id="weight" placeholder="Enter actual weight in kg">
+        <input type="number" id="weight" placeholder="Enter actual weight in kg" />
         
         <label for="gender">Gender (M/F):</label>
         <select id="gender">
@@ -26,12 +27,18 @@
             <option value="F">Female</option>
         </select>
         
+        <p class="info-text">
+          *Use this calculator only if creatinine clearance (CrCl) is greater than 20 mL/min.*
+        </p>
+        
         <button onclick="calculateDosing()">Calculate</button>
         
         <h3 id="ibw"></h3>
         <h3 id="weightType"></h3>
         
-        <p class="disclaimer">Disclaimer: DO NOT USE IF CrCl <20. USE ACTUAL BODY WEIGHT AND 7.5MG/KG FOR DOSING. <br> The results provided by these tools are for informational purposes only. We do not take responsibility for the accuracy of these results. Always verify the information and consult a professional when needed. The user is solely responsible.</p>
+        <p class="disclaimer">
+          Disclaimer: IF CrCl <20 ml/min USE ACTUAL BODY WEIGHT AND 7.5MG/KG FOR DOSING. <br> The results provided by these tools are for informational purposes only. We do not take responsibility for the accuracy of these results. Always verify the information and consult a professional when needed. The user is solely responsible.
+        </p>
     </div>
 
     <script>
@@ -52,10 +59,12 @@
                 ibw = height >= 152.4 ? 45.5 + 0.91 * (height - 152.4) : 45.5;
             }
             
-            ibw = Math.ceil(ibw); // Round up to the nearest whole number
+            ibw = Math.round(ibw * 10) / 10; // Round to 1 decimal place
             
             let ibw120 = ibw * 1.2;
             let adw = ibw + 0.4 * (weight - ibw);
+            adw = Math.round(adw * 10) / 10;
+            
             let recommendedWeight = weight > ibw120 ? adw : weight;
             let weightType = weight > ibw120 ? "CORRECTED BODY WEIGHT" : "ACTUAL BODY WEIGHT";
             
