@@ -28,16 +28,17 @@
         </select>
         
         <p class="info-text">
-          *Use this calculator only if creatinine clearance (CrCl) is greater than 20 mL/min.*
+          <b>*Use this calculator only if creatinine clearance (CrCl) is greater than 20 mL/min.*</b>
         </p>
         
         <button onclick="calculateDosing()">Calculate</button>
         
         <h3 id="ibw"></h3>
         <h3 id="weightType"></h3>
+        <h3 id="correctedWeight"></h3>
         
         <p class="disclaimer">
-          Disclaimer: IF CrCl <20 ml/min USE ACTUAL BODY WEIGHT AND 7.5MG/KG FOR DOSING. <br> The results provided by these tools are for informational purposes only. We do not take responsibility for the accuracy of these results. Always verify the information and consult a professional when needed. The user is solely responsible.
+          Disclaimer: IF CrCl <20 mL/min, USE ACTUAL BODY WEIGHT AND 7.5MG/KG DOSE. <br> The results provided by these tools are for informational purposes only. We do not take responsibility for the accuracy of these results. Always verify the information and consult a professional when needed. The user is solely responsible.
         </p>
     </div>
 
@@ -70,6 +71,12 @@
             
             document.getElementById("ibw").innerText = `Ideal Body Weight (IBW): ${ibw} kg`;
             document.getElementById("weightType").innerText = `Weight Type Used: ${weightType}`;
+
+            if (weight > ibw120) {
+                document.getElementById("correctedWeight").innerText = `Corrected Body Weight (ADW): ${adw} kg`;
+            } else {
+                document.getElementById("correctedWeight").innerText = "";
+            }
         }
     </script>
 </body>
