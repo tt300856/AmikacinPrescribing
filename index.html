@@ -70,12 +70,14 @@
             let weightType = weight > ibw120 ? "CORRECTED BODY WEIGHT" : "ACTUAL BODY WEIGHT";
             
             document.getElementById("ibw").innerText = `Ideal Body Weight (IBW): ${ibw} kg`;
-            document.getElementById("weightType").innerText = `Weight Type Used: ${weightType}`;
-
-            if (weight > ibw120) {
-                document.getElementById("correctedWeight").innerText = `Corrected Body Weight (ADW): ${adw} kg`;
+if (weight > ibw120) {
+                document.getElementById("correctedWeight").innerText = `Corrected Body Weight: ${adw} kg`;
             } else {
                 document.getElementById("correctedWeight").innerText = "";
+            
+            document.getElementById("weightType").innerText = `Weight for Dosing: ${weightType}`;
+
+            
             }
         }
     </script>
