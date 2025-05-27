@@ -15,6 +15,7 @@
 <body>
     <div class="container">
         <h2>Amikacin Dosing Calculator</h2>
+        
         <label for="height">Height (cm):</label>
         <input type="number" id="height" placeholder="Enter height in cm" />
         
@@ -28,17 +29,18 @@
         </select>
         
         <p class="info-text">
-          <b>*Use this calculator only if creatinine clearance (CrCl) is greater than 20 mL/min.*</b>
+            <b>*Use this calculator only if creatinine clearance (CrCl) is greater than 20 mL/min.*</b>
         </p>
         
         <button onclick="calculateDosing()">Calculate</button>
         
         <h3 id="ibw"></h3>
-        <h3 id="weightType"></h3>
         <h3 id="correctedWeight"></h3>
+        <h3 id="weightType"></h3>
         
         <p class="disclaimer">
-          Disclaimer: IF CrCl <20 mL/min, USE ACTUAL BODY WEIGHT AND 7.5MG/KG DOSE. <br> The results provided by these tools are for informational purposes only. We do not take responsibility for the accuracy of these results. Always verify the information and consult a professional when needed. The user is solely responsible.
+            Disclaimer: IF CrCl &lt;20 mL/min, USE ACTUAL BODY WEIGHT AND 7.5MG/KG DOSE. <br> 
+            The results provided by these tools are for informational purposes only. We do not take responsibility for the accuracy of these results. Always verify the information and consult a professional when needed. The user is solely responsible.
         </p>
     </div>
 
@@ -52,32 +54,27 @@
                 alert("Please enter valid values.");
                 return;
             }
-            
+
             let ibw;
             if (gender === "M") {
                 ibw = height >= 152.4 ? 50 + 0.91 * (height - 152.4) : 50;
             } else {
                 ibw = height >= 152.4 ? 45.5 + 0.91 * (height - 152.4) : 45.5;
             }
-            
-            ibw = Math.round(ibw * 10) / 10; // Round to 1 decimal place
-            
+
+            ibw = Math.round(ibw * 10) / 10;
             let ibw120 = ibw * 1.2;
             let adw = ibw + 0.4 * (weight - ibw);
             adw = Math.round(adw * 10) / 10;
-            
-            let recommendedWeight = weight > ibw120 ? adw : weight;
-            let weightType = weight > ibw120 ? "CORRECTED BODY WEIGHT" : "ACTUAL BODY WEIGHT";
-            
+
             document.getElementById("ibw").innerText = `Ideal Body Weight (IBW): ${ibw} kg`;
-if (weight > ibw120) {
+
+            if (weight > ibw120) {
                 document.getElementById("correctedWeight").innerText = `Corrected Body Weight: ${adw} kg`;
+                document.getElementById("weightType").innerText = `Weight for Dosing: ${adw} kg (CORRECTED BODY WEIGHT)`;
             } else {
                 document.getElementById("correctedWeight").innerText = "";
-            
-            document.getElementById("weightType").innerText = `Weight for Dosing: ${weightType}`;
-
-            
+                document.getElementById("weightType").innerText = `Weight for Dosing: ${weight} kg (ACTUAL BODY WEIGHT)`;
             }
         }
     </script>
